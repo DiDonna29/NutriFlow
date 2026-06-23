@@ -22,6 +22,11 @@ export default function Home() {
 
   const [activeMealId, setActiveMealId] = useState<string | null>(null);
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleAddFood = (mealId: string) => {
     setActiveMealId(mealId);
@@ -67,20 +72,22 @@ export default function Home() {
     };
   }, { calories: 0, protein: 0 });
 
+  if (!mounted) return null;
+
   return (
-    <div className="min-h-screen pb-20 selection:bg-primary/20">
+    <div className="min-h-screen bg-background text-foreground pb-20 selection:bg-primary/20 overflow-x-hidden">
       <StatsHeader 
         totalCalories={totalStats.calories} 
         totalProtein={totalStats.protein} 
       />
 
-      <main className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <main className="container mx-auto px-4 mt-8 sm:mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 max-w-[1400px] mx-auto">
           {meals.map((meal, index) => (
             <div 
               key={meal.id} 
-              style={{ animationDelay: `${index * 100}ms` }}
-              className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both"
+              style={{ animationDelay: `${index * 150}ms` }}
+              className="animate-reveal fill-mode-both w-full"
             >
               <MealCard
                 titleKey={meal.titleKey}
@@ -99,8 +106,11 @@ export default function Home() {
         onSelect={onSelectFood}
       />
       
-      <footer className="fixed bottom-0 w-full py-4 text-center text-xs opacity-40">
-        © {new Date().getFullYear()} NutriFlow - Wellness & Balance
+      <footer className="w-full py-12 px-4 flex flex-col items-center gap-4">
+        <div className="h-[1px] w-24 bg-border/40" />
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-20">
+          NutriFlow &bull; {new Date().getFullYear()} &bull; Professional Wellness
+        </p>
       </footer>
     </div>
   );
