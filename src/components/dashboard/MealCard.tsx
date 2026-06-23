@@ -1,17 +1,25 @@
 "use client";
 
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/context/LanguageContext';
-import { FoodItem } from '@/lib/food-data';
 import { Trash2, Plus, Clock, Coffee, Sun, Moon, Utensils } from 'lucide-react';
-import { cn } from '@/lib/utils';
+
+type MealItem = {
+  instanceId: string;
+  name: string;
+  nameKey?: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+};
 
 type MealCardProps = {
   titleKey: string;
-  items: (FoodItem & { instanceId: string })[];
+  items: MealItem[];
   onAdd: () => void;
   onRemove: (instanceId: string) => void;
 };
@@ -39,7 +47,7 @@ export function MealCard({ titleKey, items, onAdd, onRemove }: MealCardProps) {
   );
 
   return (
-    <Card className="flex flex-col h-full border border-border/40 bg-card/50 hover:bg-card hover:border-primary/20 transition-all duration-500 group overflow-hidden premium-shadow relative">
+    <Card className="flex flex-col h-full border border-border/40 bg-card/50 hover:bg-card hover:border-primary/20 transition-all duration-500 group overflow-hidden premium-shadow relative rounded-[2rem]">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
@@ -68,7 +76,9 @@ export function MealCard({ titleKey, items, onAdd, onRemove }: MealCardProps) {
               {items.map((item) => (
                 <li key={item.instanceId} className="flex items-center justify-between group/item py-2 px-3 -mx-3 rounded-xl hover:bg-secondary/40 transition-all duration-200">
                   <div className="flex flex-col min-w-0 flex-1 mr-2">
-                    <span className="font-semibold text-sm truncate">{t(item.nameKey)}</span>
+                    <span className="font-semibold text-sm truncate">
+                      {item.nameKey ? t(item.nameKey) : item.name}
+                    </span>
                     <div className="flex gap-2 text-[10px] font-medium opacity-40 uppercase tracking-tighter">
                       <span>P:{item.protein}g</span>
                       <span>C:{item.carbs}g</span>

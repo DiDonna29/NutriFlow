@@ -7,6 +7,14 @@ export const translations = {
     dinner: "Dinner",
     snacks: "Snacks",
     addFood: "Add Food",
+    customFood: "Custom Food",
+    foodName: "Food Name",
+    caloriesLabel: "Calories",
+    proteinLabel: "Protein (g)",
+    carbsLabel: "Carbs (g)",
+    fatsLabel: "Fats (g)",
+    mealType: "Meal Time",
+    save: "Save Entry",
     remove: "Remove",
     calories: "kcal",
     protein: "Protein",
@@ -18,6 +26,7 @@ export const translations = {
     language: "Language",
     recurringFoods: "Quick Picks",
     emptyMeal: "No items added yet",
+    cancel: "Cancel",
     foods: {
       oats: "Oats",
       eggs: "Eggs",
@@ -39,6 +48,14 @@ export const translations = {
     dinner: "Cena",
     snacks: "Meriendas",
     addFood: "Agregar Alimento",
+    customFood: "Alimento Personalizado",
+    foodName: "Nombre del Alimento",
+    caloriesLabel: "Calorías",
+    proteinLabel: "Proteína (g)",
+    carbsLabel: "Carbohidratos (g)",
+    fatsLabel: "Grasas (g)",
+    mealType: "Momento de Comida",
+    save: "Guardar Entrada",
     remove: "Eliminar",
     calories: "kcal",
     protein: "Proteína",
@@ -50,6 +67,7 @@ export const translations = {
     language: "Idioma",
     recurringFoods: "Selección Rápida",
     emptyMeal: "Sin alimentos agregados",
+    cancel: "Cancelar",
     foods: {
       oats: "Avena",
       eggs: "Huevos",
@@ -66,4 +84,3 @@ export const translations = {
 };
 
 export type Language = 'en' | 'es';
-export type TranslationKey = keyof typeof translations.en;
