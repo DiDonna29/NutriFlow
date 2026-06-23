@@ -13,12 +13,27 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>('es');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem('nutriflow_lang') as Language;
+    if (savedLang) {
+      setLanguage(savedLang);
+    }
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem('nutriflow_lang', language);
+    }
+  }, [language, mounted]);
 
   const t = (path: string) => {
     const keys = path.split('.');
     let current: any = translations[language];
     for (const key of keys) {
-      if (current[key] === undefined) return path;
+      if (!current || current[key] === undefined) return path;
       current = current[key];
     }
     return current;
