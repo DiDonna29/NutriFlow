@@ -50,39 +50,39 @@ export function MealCard({ titleKey, items, onAdd, onRemove }: MealCardProps) {
     <Card className="flex flex-col h-full border border-border/40 bg-card/50 hover:bg-card hover:border-primary/20 transition-all duration-500 group overflow-hidden premium-shadow relative rounded-[2rem]">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 gap-2">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="p-2.5 rounded-xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shrink-0">
             {getMealIcon(titleKey)}
           </div>
-          <CardTitle className="text-lg font-bold tracking-tight">
+          <CardTitle className="text-lg font-bold tracking-tight truncate">
             {t(titleKey)}
           </CardTitle>
         </div>
-        <Badge variant="secondary" className="font-mono text-[10px] tracking-wider px-2 py-0.5 rounded-lg bg-primary/5 text-primary border-none">
+        <Badge variant="secondary" className="font-mono text-[10px] tracking-wider px-2 py-0.5 rounded-lg bg-primary/5 text-primary border-none whitespace-nowrap shrink-0">
           {totals.calories} {t('calories')}
         </Badge>
       </CardHeader>
 
-      <CardContent className="flex-1 px-6">
-        <div className="min-h-[140px] flex flex-col">
+      <CardContent className="flex-1 px-6 min-h-0">
+        <div className="min-h-[140px] flex flex-col overflow-hidden">
           {items.length === 0 ? (
             <div className="flex-1 flex flex-col items-center justify-center opacity-20 py-10 text-center">
               <Utensils className="h-8 w-8 mb-2 stroke-1" />
               <p className="text-xs font-medium uppercase tracking-widest">{t('emptyMeal')}</p>
             </div>
           ) : (
-            <ul className="space-y-1">
+            <ul className="space-y-1 overflow-y-auto max-h-[300px] pr-1 custom-scrollbar">
               {items.map((item) => (
-                <li key={item.instanceId} className="flex items-center justify-between group/item py-2 px-3 -mx-3 rounded-xl hover:bg-secondary/40 transition-all duration-200">
+                <li key={item.instanceId} className="flex items-center justify-between group/item py-2 px-3 -mx-3 rounded-xl hover:bg-secondary/40 transition-all duration-200 min-w-0">
                   <div className="flex flex-col min-w-0 flex-1 mr-2">
-                    <span className="font-semibold text-sm truncate">
+                    <span className="font-semibold text-sm truncate w-full">
                       {item.nameKey ? t(item.nameKey) : item.name}
                     </span>
-                    <div className="flex gap-2 text-[10px] font-medium opacity-40 uppercase tracking-tighter">
-                      <span>P:{item.protein}g</span>
-                      <span>C:{item.carbs}g</span>
-                      <span>F:{item.fats}g</span>
+                    <div className="flex flex-wrap gap-x-2 gap-y-0 text-[10px] font-medium opacity-40 uppercase tracking-tighter">
+                      <span className="whitespace-nowrap">P:{item.protein}g</span>
+                      <span className="whitespace-nowrap">C:{item.carbs}g</span>
+                      <span className="whitespace-nowrap">F:{item.fats}g</span>
                     </div>
                   </div>
                   <Button
@@ -101,21 +101,21 @@ export function MealCard({ titleKey, items, onAdd, onRemove }: MealCardProps) {
       </CardContent>
 
       <div className="px-6 py-4 mt-auto">
-        <div className="p-4 rounded-2xl bg-secondary/30 flex justify-between items-center border border-border/20">
-          <div className="flex flex-col gap-0.5">
-            <span className="text-[10px] font-black uppercase tracking-widest opacity-30 leading-none mb-1">{t('total')}</span>
-            <div className="flex gap-3 text-xs font-bold">
-              <span className="text-primary">P: {totals.protein.toFixed(1)}g</span>
-              <span className="opacity-60">C: {totals.carbs.toFixed(1)}g</span>
+        <div className="p-4 rounded-2xl bg-secondary/30 flex justify-between items-center border border-border/20 gap-2 overflow-hidden">
+          <div className="flex flex-col gap-0.5 min-w-0">
+            <span className="text-[10px] font-black uppercase tracking-widest opacity-30 leading-none mb-1 truncate">{t('total')}</span>
+            <div className="flex gap-x-3 gap-y-0 text-xs font-bold flex-wrap">
+              <span className="text-primary whitespace-nowrap">P: {totals.protein.toFixed(1)}g</span>
+              <span className="opacity-60 whitespace-nowrap">C: {totals.carbs.toFixed(1)}g</span>
             </div>
           </div>
           <Button 
             size="sm" 
             onClick={onAdd}
-            className="rounded-xl h-9 px-4 gap-1.5 font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all active:scale-95 group/btn"
+            className="rounded-xl h-9 px-4 gap-1.5 font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all active:scale-95 group/btn shrink-0"
           >
             <Plus className="h-3.5 w-3.5 group-hover/btn:rotate-90 transition-transform duration-300" />
-            <span className="text-[10px] uppercase tracking-wider">{t('addFood')}</span>
+            <span className="text-[10px] uppercase tracking-wider hidden xs:inline">{t('addFood')}</span>
           </Button>
         </div>
       </div>
